@@ -17,13 +17,14 @@ class Hotel {
     hotelName = json['hotelName'];
   }
 }
+
 class HotelResponse {
   List<Hotel> hotel;
   HotelResponse({this.hotel});
   HotelResponse.fromJson(Map<String, dynamic> json) {
     print(json['result']);
     if (json['result'] != null) {
-      hotel = new List<Hotel>();
+      hotel = new List<Hotel>.empty();
       json['result'].forEach((v) {
         hotel.add(Hotel.fromJson(v));
       });

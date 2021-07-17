@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_eats/DashBoard/Hotel/Hotel/Home.dart';
-import 'file:///D:/C%20files/AndroidStudioProjects/flutter_eats/lib/DashBoard/Orders/Orders.dart';
+import 'file:///Users/IRFAN MUSTAFA/Desktop/fw/flutter_eats/lib/DashBoard/Orders/Orders.dart';
 import 'package:flutter_eats/DashBoard/Profile.dart';
 import 'package:flutter_eats/Db/Constants.dart';
 import 'package:flutter_eats/Db/Services/ProfileServices.dart';
@@ -32,6 +32,7 @@ class _DashboardState extends State<Dashboard> {
     super.dispose();
     _pageController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     Widget actionBarText() {
@@ -40,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
         style: TextStyle(color: kTextColor),
       );
     }
+
     return Scaffold(
       appBar: buildAppBar(actionBarText),
       extendBodyBehindAppBar: true,
@@ -70,6 +72,7 @@ class _DashboardState extends State<Dashboard> {
       body: Home(),
     );
   }
+
   AppBar buildAppBar(Widget actionBarText()) {
     SharedPreferences prefs;
     return AppBar(
@@ -84,20 +87,23 @@ class _DashboardState extends State<Dashboard> {
             size: 30,
             color: kTextColor,
           ),
-        // icon: FlutterLogo(
-        //   size: 30,
-        //   duration: Duration(seconds: 1000),
-        // ),
-          onPressed: ()  {
-
-            ProfileSerivces().userData().then((v)=>{
-            Get.toNamed('/profile',arguments: v),
-            });
-
-              }),
+          // icon: FlutterLogo(
+          //   size: 30,
+          //   duration: Duration(seconds: 1000),
+          // ),
+          onPressed: () {
+            ProfileSerivces().userData().then((v) => {
+                  Get.toNamed('/profile', arguments: v),
+                });
+          }),
       actions: [
         IconButton(
-            icon: Image.asset('images/bag.png',color: kTextColor,width: 30,height: 30,),
+            icon: Image.asset(
+              'images/bag.png',
+              color: kTextColor,
+              width: 30,
+              height: 30,
+            ),
             onPressed: () => {Get.toNamed('/orders')}),
         SizedBox(
           width: kDefaultPadding / 2,

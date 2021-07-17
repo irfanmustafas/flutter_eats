@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_eats/Db/Constants.dart';
 import 'package:flutter_eats/Db/Model/LoginModel.dart';
@@ -26,7 +29,12 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text('Login',style: TextStyle(color: kTextColor,),),
+        title: Text(
+          'Login',
+          style: TextStyle(
+            color: kTextColor,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Center(
@@ -38,8 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: FlutterLogo(
                     size: 70,
                     curve: Curves.easeInOutCubic,
-                  )
-              ),
+                  )),
               SizedBox(height: 80.0),
               TextField(
                 controller: phone_number,
@@ -62,47 +69,57 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 12.0),
               CupertinoButton.filled(
                 onPressed: () async {
-                  if(phone_number.text.toString().trim().length==10&&password_controller.text.toString().trim().length>5)
-                    {
-                      Get.snackbar('Logging in', 'processing request !',
-                          showProgressIndicator: true,
+                  if (phone_number.text.toString().trim().length == 10 &&
+                      password_controller.text.toString().trim().length > 5) {
+                    Get.snackbar('Logging in', 'processing request !',
+                        showProgressIndicator: true,
+                        snackPosition: SnackPosition.BOTTOM);
+                    AuthService()
+                        .login(phone_number.text.toString().trim(),
+                            password_controller.text.toString().trim())
+                        .then((val) => {
+                              print(val),
+                              if (val.data['success'])
+                                {
+                                  saveLogin(val.data['msg']),
+                                  Get.offAndToNamed('/dashboard'),
+                                }
+                            })
+                        .catchErr((e) => {
+                              Get.snackbar('Error', e.toString(),
+                                  snackPosition: SnackPosition.BOTTOM)
+                            });
+                  } else {
+                    if (phone_number.text.length != 0)
+                      Get.snackbar('Phone number error', 'Enter 10 characters',
                           snackPosition: SnackPosition.BOTTOM);
-                      AuthService()
-                          .login(phone_number.text.toString().trim(),
-                          password_controller.text.toString().trim())
-                          .then((val) => {
-                        print(val),
-                        if (val.data['success'])
-                          {
-                            saveLogin(val.data['msg']),
-                            Get.offAndToNamed('/dashboard'),
-                          }
-                      })
-                          .catchErr((e) => {Get.snackbar('Error', e.toString(),
-                          snackPosition: SnackPosition.BOTTOM)
-                      });
-                    }
-                  else
-                    {
-                      if(phone_number.text.length!=0)
-                        Get.snackbar('Phone number error', 'Enter 10 characters',snackPosition: SnackPosition.BOTTOM);
-                      if(password_controller.text.length<5)
-                        Get.snackbar('Password error', 'Enter at least 5 characters',snackPosition: SnackPosition.BOTTOM);
-                    }
+                    if (password_controller.text.length < 5)
+                      Get.snackbar(
+                          'Password error', 'Enter at least 5 characters',
+                          snackPosition: SnackPosition.BOTTOM);
+                  }
                 },
                 child: Text('Login'),
               ),
               SizedBox(height: 32.0),
-              FlatButton(
-                  onPressed: () {
-                    Get.toNamed('/signUp');
-                  },
-                  child: RichText(text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Don\'t  have an account? ',style: TextStyle(color: kTextColor,fontSize: 16)),
-                      TextSpan(text: 'Sign Up',style: TextStyle(color: Colors.blueAccent,fontSize: 16))
-                    ]
-                  )))
+              Builder(builder: (context) {
+                return Center(
+                  child: FlatButton(
+                      onPressed: () {
+                        Get.toNamed('/signUp');
+                      },
+                      child: RichText(
+                          text: TextSpan(children: [
+                        TextSpan(
+                            text: 'Don\'t  have an account? ',
+                            style: TextStyle(color: kTextColor, fontSize: 16)),
+                        TextSpan(
+                            text: 'Sign Up',
+                            style: TextStyle(
+                                color: Colors.blueAccent, fontSize: 16))
+                      ]))),
+                );
+              })
             ],
           ),
         ),
@@ -122,5 +139,12 @@ class _LoginPageState extends State<LoginPage> {
       prefs.setString('token', token);
       print(prefs.getString('token'));
     });
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TextEditingController>(
+        'phone_number', phone_number));
   }
 }

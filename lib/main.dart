@@ -5,11 +5,12 @@ import 'package:flutter_eats/DashBoard/Orders/PlaceOrder.dart';
 import 'package:flutter_eats/Db/Constants.dart';
 import 'DashBoard/Orders/Orders.dart';
 import 'DashBoard/Profile.dart';
-import 'file:///D:/C%20files/AndroidStudioProjects/flutter_eats/lib/DashBoard/Hotel/Hotel/HotelDetails.dart';
+import 'file:///Users/IRFAN MUSTAFA/Desktop/fw/flutter_eats/lib/DashBoard/Hotel/Hotel/HotelDetails.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'DashBoard/DashBoard.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -17,6 +18,7 @@ Future<void> main() async {
   print(token);
   runApp(MyApp(token: token));
 }
+
 class MyApp extends StatelessWidget {
   static var route = [
     GetPage(name: '/', page: () => LoginPage()),
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
     GetPage(name: '/orders', page: () => Order()),
     GetPage(name: '/profile', page: () => Profile()),
     GetPage(name: '/hotelDetails', page: () => HotelDetails()),
-    GetPage(name: '/placeOrder', page:()=> PlaceOrder())
+    GetPage(name: '/placeOrder', page: () => PlaceOrder())
   ];
   final token;
   MyApp({this.token});

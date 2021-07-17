@@ -12,7 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_eats/DashBoard/Hotel/Menu/CartNotifier.dart';
 import 'package:flutter_eats/DashBoard/Hotel/Menu/Menucard.dart';
 import 'package:flutter_eats/DashBoard/Hotel/Menu/menuList.dart';
-import 'file:///D:/C%20files/AndroidStudioProjects/flutter_eats/lib/DashBoard/Orders/Orders.dart';
+import 'file:///Users/IRFAN MUSTAFA/Desktop/fw/flutter_eats/lib/DashBoard/Orders/Orders.dart';
+
 import 'package:flutter_eats/Db/Constants.dart';
 import 'package:flutter_eats/Db/Model/CartArgument.dart';
 import 'package:flutter_eats/Db/Model/CartModal.dart';
@@ -32,8 +33,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HotelDetails extends StatefulWidget {
   Hotel hotel;
-String imageUrl;
-  HotelDetails({this.hotel,this.imageUrl});
+  String imageUrl;
+  HotelDetails({this.hotel, this.imageUrl});
 
   @override
   _HotelDetailsState createState() => _HotelDetailsState();
@@ -136,9 +137,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                 decoration: new BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage(widget.imageUrl
-                      ),
-                      fit: BoxFit.cover),
+                      image: AssetImage(widget.imageUrl), fit: BoxFit.cover),
                 ),
               ),
             ),
@@ -486,8 +485,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                     right: 0,
                   ),
                   Container(
-                    margin: EdgeInsets.only(
-                        top: size.height * .35, bottom: 0),
+                    margin: EdgeInsets.only(top: size.height * .35, bottom: 0),
                     padding: EdgeInsets.only(
                         top: size.height * .05,
                         left: kDefaultPadding,
@@ -501,8 +499,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               widget.hotel.hotelName,
@@ -524,15 +521,13 @@ class _HotelDetailsState extends State<HotelDetails> {
                                 onPressed: () {
                                   showCupertinoModalBottomSheet(
                                     elevation: 20,
-                                    barrierColor:
-                                        Colors.black.withOpacity(.6),
+                                    barrierColor: Colors.black.withOpacity(.6),
                                     context: context,
                                     builder: (context) => Container(
                                         height: size.height * .2,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Material(
                                                 child: Container(
@@ -544,14 +539,11 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                   color: kTextColor,
                                                 ),
                                                 onPressed: () async {
-                                                  final Uri
-                                                      _emailLaunchUri =
+                                                  final Uri _emailLaunchUri =
                                                       Uri(
-                                                          scheme:
-                                                              'mailto',
+                                                          scheme: 'mailto',
                                                           path: widget
-                                                              .hotel
-                                                              .email,
+                                                              .hotel.email,
                                                           queryParameters: {
                                                         'subject':
                                                             'Reg: food related queries!'
@@ -559,9 +551,8 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                   if (await canLaunch(
                                                       _emailLaunchUri
                                                           .toString())) {
-                                                    await launch(
-                                                        _emailLaunchUri
-                                                            .toString());
+                                                    await launch(_emailLaunchUri
+                                                        .toString());
                                                   } else {
                                                     throw 'Could not launch $_emailLaunchUri';
                                                   }
@@ -584,10 +575,8 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                 onPressed: () async {
                                                   print('clicekd');
                                                   String url = 'tel:' +
-                                                      widget.hotel
-                                                          .mobileNumber;
-                                                  if (await canLaunch(
-                                                      url)) {
+                                                      widget.hotel.mobileNumber;
+                                                  if (await canLaunch(url)) {
                                                     await launch(url);
                                                   } else {
                                                     throw 'Could not launch $url';
@@ -604,8 +593,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                               child: IconButton(
                                                 iconSize: 40,
                                                 icon: Icon(
-                                                  CupertinoIcons
-                                                      .location_solid,
+                                                  CupertinoIcons.location_solid,
                                                   size: 30,
                                                   color: kTextColor,
                                                 ),
